@@ -141,7 +141,7 @@ fn main() {
     //
     // String slices should still be used with caution as they can crash
     // your program if you try to read from an index range that is not
-    // on a byte, or char, boundary
+    // on a char boundary
 
     let hello = "Здравствуйте";
 
@@ -160,10 +160,75 @@ fn main() {
         println!("Char {} is {}", char_idx, c);
     }
 
-    // The raw bytes can be printed as well with the `bytes()` method
+    // The raw bytes can be printed as well using the `bytes()` method
     let mut byte_idx = 0;
     for b in "नमस्ते".bytes() {
         byte_idx += 1;
         println!("Byte {} is {}", byte_idx, b);
     }
+
+    // The third collection type in Rust is a Hash Map, which are
+    // just associative arrays
+    //
+    // Hash Maps are also created using the `new()` method
+    use std::collections::HashMap;
+    let mut scores = HashMap::new();
+
+    // Add values to hash maps using the `insert()` method
+    // This hash map has keys of type String and values of type i32
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+
+    let field_name = String::from("Favorite Color");
+    let field_value = String::from("Blue");
+
+    let mut map = HashMap::new();
+    map.insert(field_name, field_value);
+
+    // At this point, after Line 186, field_name and field_value are
+    // invalid since they were borrowed by the insert() method
+    // But, we can re-use the variable names to make more value
+    let field_name = String::from("Second Favorite Color");
+    let field_value = String::from("Green");
+
+    map.insert(field_name, field_value);
+
+    // Values in hash maps are accessed using the `get()` method with
+    // the associated key
+    let key = String::from("Favorite Color");
+    let value = map.get(&key);
+
+    println!("{} is '{:?}'", key, value);
+
+    // You can also iterate over value/key pairs in hash maps with a `for` loop
+    // Note: These values will be printed in an arbitrary order
+    for (key, value) in &map {
+        println!("{}: {}", key, value);
+    }
+
+    let key = String::from("Favorite Color");
+
+    map.insert(String::from("Favorite Color"), String::from("Green"));
+
+    println!("{} is {:?}", key, map.get(&key));
+
+    let key = String::from("Favorite Color");
+
+    // Overwriting values in hash maps can be done when the key name
+    // already maps to a value
+    map.insert(String::from("Favorite Color"), String::from("Pink"));
+
+    println!("{} is now {:?}", key, map.get(&key));
+
+    map.insert(String::from("Blue"), String::from("50"));
+
+    println!("{} is {:?}", key, map.get(&key));
+
+    // Only inserting a value to a hash map if the key does not already have a value
+    // using the `or_insert()` method from `entry`
+    map.entry(String::from("Yellow")).or_insert(String::from("10"));
+    map.entry(String::from("Blue")).or_insert(String::from("10"));
+
+    // The key 'blue' still has a value of '50'
+    println!("map is {:?}", map);
 }
