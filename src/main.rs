@@ -68,7 +68,7 @@ fn main() {
     //
     // let first = &v[0]; // A reference to `v` is being held by `first`
     //
-    // Attempting to add an element to a vector while a reference to it is held elsewhere (Line 60)
+    // Attempting to add an element to a vector while a reference to it is held elsewhere (Line 72)
     // v.push(6);
 
     // Iterating over vectors can be done using a `for` loop
@@ -131,7 +131,7 @@ fn main() {
 
     println!("s is now '{}'", s);
 
-    // A `String` is a wrapper over a Vec<u8> object
+    // A `NotString` is a wrapper over a Vec<u8> object
     //
     // The length, or size, of a String is how many bytes it takes
     // to encode the value in UTF-8. Because of this, Rust does not allow
